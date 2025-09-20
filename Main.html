@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Feedback Portal — ShopVoice (Clone)</title>
+  <meta name="description" content="Customer Feedback Portal for Online Shopping — submit feedback, track status, admin dashboard." />
+  <style>
+    :root{
+      --bg:#f7f8fb; --card:#fff; --accent:#0f62fe; --muted:#6b6f76;
+      --radius:12px; --maxw:1100px;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:#222;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#f7f8fb,#ffffff);min-height:100vh;line-height:1.45}
+    .container{max-width:var(--maxw);margin:28px auto;padding:20px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7cc7ff);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+    nav a{margin-left:12px;color:var(--muted);text-decoration:none;font-weight:700}
+    h1{margin:6px 0 2px;font-size:28px}
+    .lead{color:var(--muted);margin-bottom:12px}
+    .hero{display:grid;grid-template-columns:1fr 340px;gap:22px;align-items:start;margin-top:16px}
+    .card{background:var(--card);padding:18px;border-radius:var(--radius);box-shadow:0 6px 18px rgba(17,24,39,0.06)}
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+    .feature{padding:12px;border-radius:10px;background:#fff;border:1px solid #f0f2f7}
+    .plans{display:flex;gap:10px;margin-top:14px}
+    .plan{flex:1;padding:12px;border-radius:10px;border:1px solid #e6e9ef;background:#fff;text-align:center}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;cursor:pointer;border:none}
+    .muted{color:var(--muted)}
+    .testimonials{display:grid;gap:10px}
+    .testimonial{padding:12px;border-radius:10px;background:#fbfdff;border:1px solid #eef6ff}
+    label{display:block;margin-top:10px;font-weight:700}
+    input,select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #dfe6ef;background:#fff;margin-top:6px}
+    footer{margin-top:26px;padding:20px 0;border-top:1px solid #eef2f6;color:var(--muted);font-size:14px}
+    .navlinks{display:flex;gap:12px}
+    .small{font-size:13px;color:var(--muted)}
+    .flex{display:flex;gap:12px;align-items:center}
+    table{width:100%;border-collapse:collapse;margin-top:14px}
+    th,td{padding:10px;border:1px solid #e9eef6;text-align:left;vertical-align:top}
+    th{background:#f6f9ff}
+    .status-chip{padding:6px 8px;border-radius:8px;font-weight:700}
+    .status-New{background:#fff4f4;color:#c62828}
+    .status-InProgress{background:#fff8e6;color:#f57c00}
+    .status-Resolved{background:#eef7ee;color:#2e7d32}
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr}
+      nav a{display:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">FP</div>
+        <div>
+          <div style="font-weight:800">Feedback Portal</div>
+          <div class="small">A single place for customer feedback</div>
+        </div>
+      </div>
+      <div class="navlinks">
+        <a class="small" href="#about" onclick="scrollToSec('about')">About</a>
+        <a class="small" href="#features" onclick="scrollToSec('features')">Features</a>
+        <a class="small" href="#pricing" onclick="scrollToSec('pricing')">Pricing</a>
+        <a class="small" href="#testimonials" onclick="scrollToSec('testimonials')">Testimonials</a>
+        <button class="btn" onclick="showSection('form')">Submit Feedback</button>
+        <button class="btn" style="background:#2c3e50" onclick="showSection('admin')">Admin Dashboard</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero card">
+        <div>
+          <h1>Customer Feedback Portal for Online Shopping</h1>
+          <p class="lead">Effortlessly submit feedback, suggestions, and complaints. Track your request status, and experience faster issue resolution. Admin dashboards make review and response easy.</p>
+
+          <div class="card" style="margin-top:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div style="font-weight:800">Submit Feedback</div>
+                <div class="small">No login required — quick and private</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-size:18px;font-weight:800">4.7/5</div>
+                <div class="small">from 9k users</div>
+              </div>
+            </div>
+            <div id="features" style="margin-top:12px">
+              <h3 style="margin:6px 0">Powerful Features</h3>
+              <div class="features">
+                <div class="feature"><strong>Easy Feedback Submission</strong><div class="small">Intuitive forms for feedback, suggestions, and complaints.</div></div>
+                <div class="feature"><strong>Real-time Tracking</strong><div class="small">Monitor progress and receive updates.</div></div>
+                <div class="feature"><strong>Admin Dashboard</strong><div class="small">Categorize and respond efficiently.</div></div>
+              </div>
+            </div>
+
+            <div style="margin-top:12px" id="pricing">
+              <h3 style="margin:6px 0">Transparent Pricing</h3>
+              <div class="plans">
+                <div class="plan"><div style="font-weight:800">Starter</div><div class="small" style="margin:6px 0">$29 / month</div><div class="small">Form integration • Basic dashboard • Email alerts</div></div>
+                <div class="plan"><div style="font-weight:800">Growth</div><div class="small" style="margin:6px 0">$79 / month</div><div class="small">All Starter • Categorization • Role-based admin</div></div>
+                <div class="plan"><div style="font-weight:800">Enterprise</div><div class="small" style="margin:6px 0">Contact us</div><div class="small">Custom workflows • Advanced analytics • SLA</div></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <aside style="max-width:360px">
+          <div class="card">
+            <!-- PLACEHOLDER IMAGE (replace with your asset) -->
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900&q=60" alt="Portal preview" style="width:100%;border-radius:8px;display:block">
+            <div style="margin-top:10px">
+              <div style="font-weight:800">Share Your Feedback</div>
+              <div class="small">Fill out the quick form below — required fields marked *</div>
+            </div>
+
+            <!-- CUSTOMER FORM SECTION -->
+            <div id="form" style="margin-top:10px">
+              <form id="customerForm">
+                <label for="f_type">What would you like to submit? *</label>
+                <select id="f_type" required>
+                  <option>Feedback</option>
+                  <option>Suggestion</option>
+                  <option>Complaint</option>
+                </select>
+
+                <label for="f_name">Name *</label>
+                <input id="f_name" placeholder="Your name" required>
+
+                <label for="f_contact">Email or Phone *</label>
+                <input id="f_contact" placeholder="you@example.com or +1 555..." required>
+
+                <label for="f_message">Your Message *</label>
+                <textarea id="f_message" rows="4" placeholder="Tell us what's on your mind" required></textarea>
+
+                <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
+                  <button type="submit" class="btn">Submit</button>
+                  <div id="formMsg" class="small" style="font-weight:700"></div>
+                </div>
+              </form>
+
+              <div style="margin-top:10px;font-size:13px;color:#666">Special: First 50 submissions get priority review!</div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- HOW WE WORK -->
+      <section id="about" style="margin-top:18px">
+        <div class="card">
+          <h2>How We Work</h2>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <div style="flex:1;min-width:200px">
+              <h4>Step 1</h4>
+              <strong>Submission Made Simple</strong>
+              <p class="small">Customers submit feedback easily through intuitive forms. No login required.</p>
+            </div>
+            <div style="flex:1;min-width:200px">
+              <h4>Step 2</h4>
+              <strong>Real-Time Tracking</strong>
+              <p class="small">Track the status and receive updates.</p>
+            </div>
+            <div style="flex:1;min-width:200px">
+              <h4>Step 3</h4>
+              <strong>Transparent Reviews</strong>
+              <p class="small">Admins review, categorize, and respond quickly.</p>
+            </div>
+            <div style="flex:1;min-width:200px">
+              <h4>Step 4</h4>
+              <strong>Continuous Improvement</strong>
+              <p class="small">Feedback fuels product improvements.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS & CONTACT -->
+      <section id="testimonials" style="margin-top:18px;display:grid;grid-template-columns:1fr 320px;gap:12px">
+        <div class="card">
+          <h3>What Our Customers Say</h3>
+          <div class="testimonials" style="margin-top:8px">
+            <div class="testimonial"><strong>Anna Peterson</strong><div class="small">Loyal Customer</div><p class="small" style="margin-top:8px">"Submitting feedback was a breeze, and I received a prompt response from support. The portal made it easy to track my complaint status in real-time."</p></div>
+            <div class="testimonial"><strong>David Lee</strong><div class="small">Verified Buyer</div><p class="small" style="margin-top:8px">"I used the suggestions form to request new features — it was implemented. The dashboard keeps everything organized."</p></div>
+            <div class="testimonial"><strong>Priya Desai</strong><div class="small">Satisfied Customer</div><p class="small" style="margin-top:8px">"Excellent experience! I could suggest improvements and check status updates all in one place."</p></div>
+          </div>
+        </div>
+
+        <aside class="card">
+          <h4>Contact Us</h4>
+          <p class="small">Support & sales — we usually reply within one business day.</p>
+          <p style="margin:6px 0"><strong>Phone:</strong> +1 (800) 555-PORTAL</p>
+          <p style="margin:6px 0"><strong>Email:</strong> <a href="mailto:[email protected]">[email protected]</a></p>
+          <p style="margin:6px 0"><strong>Address:</strong><br>110 Commerce Ave, Suite 204, New York, NY 10001</p>
+        </aside>
+      </section>
+
+      <!-- ADMIN DASHBOARD (hidden by default) -->
+      <section id="admin" class="card" style="margin-top:16px;display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h3>Admin Dashboard</h3>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input id="adminPass" type="password" placeholder="Admin password" />
+            <button class="btn" onclick="adminLogin()">Login</button>
+            <button class="btn" style="background:#999" onclick="logoutAdmin()">Logout</button>
+          </div>
+        </div>
+
+        <div id="adminPanel" style="margin-top:12px;display:none">
+          <div style="display:flex;gap:8px;align-items:center">
+            <input id="searchBox" placeholder="Search by name, contact, message or id" style="flex:1;padding:8px;border-radius:8px;border:1px solid #ddd" oninput="renderTable()" />
+            <select id="statusFilter" onchange="renderTable()">
+              <option value="">All statuses</option>
+              <option>New</option>
+              <option>InProgress</option>
+              <option>Resolved</option>
+            </select>
+            <button class="btn" onclick="exportCSV()">Export CSV</button>
+            <button class="btn" style="background:#e74c3c" onclick="clearAll()">Clear All</button>
+          </div>
+
+          <table id="feedbackTable" style="margin-top:12px">
+            <thead>
+              <tr><th>ID</th><th>Type</th><th>Name</th><th>Contact</th><th>Message</th><th>Status</th><th>Action</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>© 2025 Feedback Portal. All rights reserved.</div>
+        <div class="small">Empowering better shopping experiences</div>
+      </div>
+    </footer>
+  </div>
+
+<script>
+/* -------------------------
+  Data layer (localStorage)
+   ------------------------- */
+const STORAGE_KEY = 'feedback_portal_entries_v1';
+function readAll(){ return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+function saveAll(arr){ localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
+
+/* -------------------------
+  Customer form submit
+   ------------------------- */
+const customerForm = document.getElementById('customerForm');
+const formMsg = document.getElementById('formMsg');
+customerForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const type = document.getElementById('f_type').value;
+  const name = document.getElementById('f_name').value.trim();
+  const contact = document.getElementById('f_contact').value.trim();
+  const message = document.getElementById('f_message').value.trim();
+  if(!name || !contact || !message){ formMsg.textContent = 'Please fill all required fields.'; formMsg.style.color='#c62828'; return; }
+  const entries = readAll();
+  const entry = {
+    id: Date.now().toString(),
+    type, name, contact, message,
+    status: 'New',
+    createdAt: new Date().toISOString()
+  };
+  entries.unshift(entry);
+  saveAll(entries);
+  formMsg.textContent = 'Thanks — your submission ID: ' + entry.id;
+  formMsg.style.color='#1b5e20';
+  customerForm.reset();
+  // optionally show admin or tracking link
+});
+
+/* -------------------------
+  Admin logic
+   ------------------------- */
+let isAdmin = false;
+function showSection(id){
+  // scroll to and show form/admin
+  if(id === 'form'){ document.getElementById('form').scrollIntoView({behavior:'smooth'}); }
+  if(id === 'admin'){ document.getElementById('admin').style.display='block'; document.getElementById('admin').scrollIntoView({behavior:'smooth'}); }
+}
+
+// login (demo)
+function adminLogin(){
+  const pass = document.getElementById('adminPass').value;
+  if(pass === 'admin123'){
+    isAdmin = true;
+    document.getElementById('adminPanel').style.display = 'block';
+    document.getElementById('adminPass').value = '';
+    renderTable();
+  } else {
+    alert('Wrong password (demo). Use admin123 or change in code.');
+  }
+}
+
+function logoutAdmin(){
+  isAdmin = false;
+  document.getElementById('adminPanel').style.display = 'none';
+}
+
+/* render table with search/filter */
+function renderTable(){
+  const tbody = document.querySelector('#feedbackTable tbody');
+  tbody.innerHTML = '';
+  const entries = readAll();
+  const q = (document.getElementById('searchBox')?.value || '').toLowerCase().trim();
+  const statusFilter = document.getElementById('statusFilter')?.value || '';
+  entries.forEach(e => {
+    if(statusFilter && e.status !== statusFilter) return;
+    if(q){
+      const hay = (e.id + ' ' + e.name + ' ' + e.contact + ' ' + e.message + ' ' + e.type).toLowerCase();
+      if(!hay.includes(q)) return;
+    }
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${e.id}</td>
+      <td>${e.type}</td>
+      <td>${escapeHtml(e.name)}</td>
+      <td>${escapeHtml(e.contact)}</td>
+      <td style="max-width:360px;white-space:pre-wrap;">${escapeHtml(e.message)}</td>
+      <td><span class="status-chip status-${e.status.replace(/\s+/g,'')}">${e.status}</span></td>
+      <td>
+        <select onchange="changeStatus('${e.id}',this.value)">
+          <option ${e.status==='New'?'selected':''}>New</option>
+          <option ${e.status==='InProgress'?'selected':''}>InProgress</option>
+          <option ${e.status==='Resolved'?'selected':''}>Resolved</option>
+        </select>
+        <button onclick="deleteEntry('${e.id}')" style="margin-left:8px;background:#e74c3c;color:#fff;border:none;padding:6px 8px;border-radius:6px;cursor:pointer">Delete</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+/* change status */
+function changeStatus(id, status){
+  const arr = readAll();
+  const idx = arr.findIndex(x => x.id === id);
+  if(idx >= 0){ arr[idx].status = status; saveAll(arr); renderTable(); }
+}
+
+/* delete entry */
+function deleteEntry(id){
+  if(!confirm('Delete entry '+id+'?')) return;
+  let arr = readAll();
+  arr = arr.filter(x => x.id !== id);
+  saveAll(arr);
+  renderTable();
+}
+
+/* export CSV */
+function exportCSV(){
+  const arr = readAll();
+  if(arr.length === 0){ alert('No entries to export'); return; }
+  const header = ['id','type','name','contact','message','status','createdAt'];
+  const rows = arr.map(r => header.map(h => "${(r[h]||'').toString().replace(/"/g,'""')}").join(','));
+  const csv = [header.join(','), ...rows].join('\n');
+  const blob = new Blob([csv], {type: 'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'feedback_export.csv'; document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+}
+
+/* clear all entries (danger) */
+function clearAll(){
+  if(!confirm('Clear ALL feedback entries? This cannot be undone.')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  renderTable();
+}
+
+/* helpers */
+function escapeHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* init */
+document.addEventListener('DOMContentLoaded', () => {
+  // if admin section contains saved entries, show nothing until login
+  if(readAll().length > 0){
+    // keep admin hidden until login
+  }
+});
+</script>
+</body>
+</html>
